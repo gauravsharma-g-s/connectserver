@@ -78,23 +78,22 @@ const getUser = (userId) => {
     return users.find(user => user.userId === userId);
 }
 io.on("connection", (socket) => {
-    console.log("a user connected");
     // FETCH userId and socketId from User
     socket.on("addUser", userId => {
         addUser(userId, socket.id);
         io.emit("getUsers", users);
     });
 
-    socket.on("sendMessage", ({ senderId, receiverId, message }) => {
+    socket.on("sendMessage", ({ conversationId, senderId, receiverId, message }) => {
         const receiver = getUser(receiverId);
         receiver && io.to(receiver.socketId).emit("getMessage", {
+            conversationId,
             senderId,
             message
         });
     });
 
     socket.on("disconnect", () => {
-        console.log("A user disconnected")
         removeUser(socket.id);
         io.emit("getUsers", users)
     });

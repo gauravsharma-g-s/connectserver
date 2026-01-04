@@ -43,7 +43,6 @@ const register = async (req, res) => {
             throw new Error("400 Empty otp details are not allowed");
         } else {
             const UserOTPVerificationRecords = await UserOTPVerification.findById(otpId);
-            console.log("userOtpverificationrecords", UserOTPVerificationRecords.length);
             if (UserOTPVerificationRecords.length <= 0) {
                 // no records found
                 throw new Error("Account record not found. Signup again")
@@ -170,7 +169,6 @@ const sendOTPVerificationEmail = async (req, res) => {
         // Hash the Otp
         const salt = 10;
         const hashedOtp = await bcrypt.hash(otp, salt);
-        console.log("Creating otp for " + email)
         const newOTPVerification = new UserOTPVerification({
             email: email,
             otp: hashedOtp,
