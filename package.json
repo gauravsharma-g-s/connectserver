@@ -17,10 +17,14 @@
     "socket.io": "^4.7.2"
   },
   "name": "socialmediaserver",
-  "description": "This is the backend for handling the server of Social Media Application built using",
+  "description": "Backend server for Connect social media application built using Node.js, Express, MongoDB, and Socket.io",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+  "node": ">=18"
+},
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index"
   },
